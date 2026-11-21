@@ -7,3 +7,6 @@
 [build.environment]
   NODE_VERSION = "22"
   NEXT_TELEMETRY_DISABLED = "1"
+  # These hold public defaults (not secrets) that also appear in the code and docs,
+  # so Netlify's secret scanner must not block the deploy because of them.
+  SECRETS_SCAN_OMIT_KEYS = "EMAIL_FROM,SMTP_HOST,SMTP_PORT"
