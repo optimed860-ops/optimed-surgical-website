@@ -164,6 +164,15 @@ Open <http://localhost:3000/admin/login> and sign in with the admin account. The
 
 Already built in for search engines and AI answer engines: page titles and descriptions, canonical links, `robots.txt`, `sitemap.xml`, share images (Open Graph), structured data (Organization, WebSite, BreadcrumbList, FAQPage, Blog and BlogPosting) and `/llms.txt` (a plain summary for AI assistants). Admin pages are hidden from search engines.
 
+## Keeping the free Supabase project awake
+
+Supabase pauses free projects after 7 days without requests. Two daily pings prevent that:
+
+1. **Netlify scheduled function** (`netlify/functions/keep-supabase-awake.mts`): runs every day at 06:00 UTC once the site is deployed. Nothing to set up; check it under Netlify → **Logs → Functions**.
+2. **GitHub Actions backup** (`.github/workflows/keep-supabase-awake.yml`): add repository secrets `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` (Settings → Secrets and variables → Actions), then run it once from the **Actions** tab to test.
+
+Both only read one public settings row with the publishable key. If the project is ever paused anyway, open it in the Supabase dashboard and click **Restore**.
+
 ## Blog
 
 The blog is linked only from the footer (**Company → Blog**). Write articles in **Admin → Blog**: title, summary, article text (simple formatting: `## heading`, `- list`, `**bold**`, `[link](/products)`), SEO title and description, tags and a cover image (1200 × 630). A future publish date schedules an article. Tips: one clear topic per article, use the words buyers search for in the title and first paragraph, add a short FAQ at the end, and link to related product pages.
