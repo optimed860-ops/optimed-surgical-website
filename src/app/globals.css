@@ -1,26 +1,254 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Optimed design tokens
+ * ─────────────────────
+ * Palette: Optimed navy + Optimed cyan (from the logo) on cool "surgical
+ * steel" neutrals. Cyan is used sparingly, as a signal.
+ * Type: Archivo set EXPANDED (wdth 125) for headings, like engraving on an
+ * instrument; IBM Plex Sans for reading; IBM Plex Mono only for real product
+ * codes and reference numbers.
+ * Signature: one diagonal, at the angle of the slash in the logo "O", used in
+ * the hero. Everything else stays quiet.
+ * Scale (Elements of Typographic Style): 14 · 16 · 17 · 21 · 24 · 30 · 36 · 48 · 60 · 72
+ */
+
+@theme {
+  --color-navy-950: #011a47;
+  --color-navy-900: #02205a;
+  --color-navy-800: #03286a;
+  --color-navy-700: #123c85;
+  --color-navy-100: #e1e8f4;
+
+  --color-orange-500: #f7731a;
+  --color-orange-600: #e2620c;
+
+  --color-cyan-50: #e6f5fb;
+  --color-cyan-100: #c8eaf7;
+  --color-cyan-300: #62c6ec;
+  --color-cyan-500: #0a98e6;
+  --color-cyan-700: #0070b5;
+
+  /* Kept as aliases so older classes keep working */
+  --color-medical-50: #e6f5fb;
+  --color-medical-100: #c8eaf7;
+  --color-medical-300: #62c6ec;
+  --color-medical-500: #009cd8;
+  --color-medical-600: #0086bb;
+  --color-medical-700: #00739f;
+
+  --color-ink: #151935;
+  --color-slate-text: #5b627a;
+  --color-steel: #f0f4fa;
+  --color-steel-2: #e2e7ee;
+  --color-surface: #eef1f5;
+  --color-surface-2: #e2e7ee;
+  --color-line: #d9dfe7;
+
+  --text-display: clamp(2.375rem, 1.6rem + 2.3vw, 3.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
+  --text-h1: clamp(2.125rem, 1.6rem + 1.9vw, 3rem);
+  --text-h1--line-height: 1.06;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h2: clamp(1.75rem, 1.35rem + 1.3vw, 2.375rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
+  --text-lead: 1.1875rem;
+  --text-lead--line-height: 1.6;
+
+  --container-page: 90rem;
+  --spacing-section: clamp(4.5rem, 3rem + 5vw, 8rem);
 }
 
 @theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #ffffff;
+  --foreground: var(--color-ink);
+  --card: #ffffff;
+  --card-foreground: var(--color-ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-navy-800);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-steel);
+  --secondary-foreground: var(--color-navy-800);
+  --muted: var(--color-steel);
+  --muted-foreground: var(--color-slate-text);
+  --accent: var(--color-cyan-50);
+  --accent-foreground: var(--color-navy-800);
+  --destructive: #b42318;
+  --border: var(--color-line);
+  --input: #c9d1dc;
+  --ring: var(--color-cyan-500);
+  --chart-1: var(--color-navy-800);
+  --chart-2: var(--color-cyan-500);
+  --chart-3: var(--color-navy-700);
+  --chart-4: #8a93a8;
+  --chart-5: #c9d1dc;
+  --radius: 0.5rem;
+  --sidebar: var(--color-navy-950);
+  --sidebar-foreground: #d7dcec;
+  --sidebar-primary: var(--color-cyan-500);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--color-navy-800);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: var(--color-navy-800);
+  --sidebar-ring: var(--color-cyan-500);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-navy-800;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-cyan-100);
+    color: var(--color-navy-900);
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-cyan-500);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* FAQ: a short, smooth open/close. Uses ::details-content where supported;
+   other browsers simply open instantly. Reduced-motion users get no motion
+   (see the base layer). */
+:root {
+  interpolate-size: allow-keywords;
+}
+.faq-item::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    content-visibility 0.32s allow-discrete;
+}
+.faq-item[open]::details-content {
+  block-size: auto;
+}
+.faq-item .faq-answer {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.28s ease 0.05s,
+    transform 0.28s ease 0.05s;
+}
+.faq-item[open] .faq-answer {
+  opacity: 1;
+  transform: none;
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-(--container-page) px-5 sm:px-8 lg:px-10;
+  }
+  /* Expanded heading face for display type outside h1–h4 */
+  .font-wide {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+  /* Small sentence-case kicker; use only where it adds information */
+  .eyebrow {
+    @apply text-sm font-semibold text-cyan-700;
+  }
+  .eyebrow-plain {
+    @apply text-sm font-semibold text-slate-text;
+  }
+  .ref-code {
+    @apply font-mono text-[0.8125rem] tracking-tight;
+  }
+  /* Long-form reading width */
+  .measure {
+    max-width: 38rem;
+  }
 }
