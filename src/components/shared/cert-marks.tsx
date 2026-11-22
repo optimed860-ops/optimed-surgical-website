@@ -71,20 +71,20 @@ export function TrustMarks({ className }: { className?: string }) {
     <FdaMark key="fda" />,
     <IsoMark key="iso" />,
     <CeMark key="ce" />,
-    <span key="eu" className="flex items-center gap-3" role="img" aria-label="EU MDR">
+    <span key="eu" className="flex items-center gap-2 sm:gap-3 [&>svg]:h-8 sm:[&>svg]:h-auto [&>svg]:w-auto" role="img" aria-label="EU MDR">
       <EuFlag />
-      <span aria-hidden className="text-[1.5rem] font-bold tracking-tight whitespace-nowrap text-navy-800">
+      <span aria-hidden className="text-lg font-bold tracking-tight whitespace-nowrap text-navy-800 sm:text-[1.5rem]">
         EU MDR
       </span>
     </span>,
   ];
   return (
     <ul
-      className={cn("grid grid-cols-2 items-center justify-items-center gap-y-8 sm:flex sm:justify-center", className)}
+      className={cn("grid grid-cols-2 items-center justify-items-center gap-x-4 gap-y-7 sm:flex sm:justify-center", className)}
       aria-label="Certifications"
     >
       {items.map((item, index) => (
-        <li key={index} className="flex items-center sm:contents">
+        <li key={index} className="flex h-14 items-center justify-center sm:contents">
           {index > 0 ? <span aria-hidden className="mx-6 hidden h-12 w-px bg-line sm:block xl:mx-10" /> : null}
           <span className="flex items-center">{item}</span>
         </li>

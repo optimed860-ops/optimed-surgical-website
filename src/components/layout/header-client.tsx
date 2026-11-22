@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense, useState } from "react";
-import { ArrowRight, Menu } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -137,9 +137,16 @@ function MobileNavWithPath({ categories }: { categories: NavCategory[] }) {
 
 function MobileNavView({ categories, pathname }: { categories: NavCategory[]; pathname: string }) {
   const [open, setOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet
+      open={open}
+      onOpenChange={(next) => {
+        setOpen(next);
+        if (!next) setProductsOpen(false);
+      }}
+    >
       <SheetTrigger asChild>
         <Button variant="outline" size="icon-lg" className="size-11 lg:hidden" aria-label="Open menu">
           <Menu aria-hidden />
@@ -153,16 +160,40 @@ function MobileNavView({ categories, pathname }: { categories: NavCategory[]; pa
           <ul>
             {NAV.map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                  className="block rounded-md px-3 py-3 text-lg font-medium text-ink hover:bg-steel aria-[current=page]:text-cyan-700"
-                >
-                  {item.label}
-                </Link>
                 {item.href === "/products" && categories.length > 0 ? (
-                  <ul className="mb-2 ml-3 border-l-2 border-line pl-3">
+                  // Products opens a list of categories; it does not navigate by itself.
+                  <button
+                    type="button"
+                    onClick={() => setProductsOpen((v) => !v)}
+                    aria-expanded={productsOpen}
+                    aria-controls="mobile-products"
+                    data-active={isActive(pathname, item.href) || undefined}
+                    className="flex w-full items-center justify-between rounded-md px-3 py-3 text-left text-lg font-medium text-ink hover:bg-steel data-[active]:text-cyan-700"
+                  >
+                    {item.label}
+                    <ChevronDown className={`size-5 text-slate-text transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`} aria-hidden />
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={isActive(pathname, item.href) ? "page" : undefined}
+                    className="block rounded-md px-3 py-3 text-lg font-medium text-ink hover:bg-steel aria-[current=page]:text-cyan-700"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+                {item.href === "/products" && categories.length > 0 && productsOpen ? (
+                  <ul id="mobile-products" className="mb-2 ml-3 border-l-2 border-line pl-3">
+                    <li>
+                      <Link
+                        href="/products"
+                        onClick={() => setOpen(false)}
+                        className="block rounded-md px-3 py-2 text-[0.9375rem] font-semibold text-navy-800 hover:text-cyan-700"
+                      >
+                        All products
+                      </Link>
+                    </li>
                     {categories.map((category) => (
                       <li key={category.slug}>
                         <Link

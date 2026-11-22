@@ -111,7 +111,7 @@ export async function WhatWeMakeDisciplines() {
   const { whatWeMake: WHAT_WE_MAKE } = await getSiteContent();
   const DISCIPLINES = WHAT_WE_MAKE.disciplines;
   return (
-    <section className="bg-steel py-24 lg:py-32">
+    <section className="bg-steel py-16 sm:py-24 lg:py-32">
       <div className="container-page">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
           <div>
@@ -128,20 +128,20 @@ export async function WhatWeMakeDisciplines() {
           </div>
         </div>
 
-        <ul className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-10 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-4 lg:grid-cols-4">
           {DISCIPLINES.map((name) => {
             const Icon = DISCIPLINE_ICONS[name];
             return (
               <li key={name}>
                 <Link
                   href={`/catalogue?interest=${encodeURIComponent(name)}`}
-                  className="group flex h-full flex-col rounded-2xl border border-[#dfe7f2] bg-white p-6 transition-[border-color,box-shadow] hover:border-cyan-500/60 hover:shadow-[0_20px_40px_-28px_rgb(2_35_94/0.45)]"
+                  className="group flex h-full flex-col rounded-2xl border border-[#dfe7f2] bg-white p-4 transition-[border-color,box-shadow] sm:p-6 hover:border-cyan-500/60 hover:shadow-[0_20px_40px_-28px_rgb(2_35_94/0.45)]"
                 >
-                  <span className="grid size-16 place-items-center rounded-2xl bg-cyan-50 text-navy-800 transition-colors group-hover:bg-navy-800 group-hover:text-white">
+                  <span className="grid size-12 place-items-center rounded-xl bg-cyan-50 text-navy-800 transition-colors group-hover:bg-navy-800 group-hover:text-white sm:size-16 sm:rounded-2xl [&_svg]:size-7 sm:[&_svg]:size-9">
                     {Icon ? <Icon size={36} aria-hidden /> : <Stethoscope className="size-8" strokeWidth={1.5} aria-hidden />}
                   </span>
-                  <span className="mt-6 text-lg leading-snug font-semibold text-navy-800">{name}</span>
-                  <span className="mt-auto flex items-center gap-1.5 pt-5 text-sm font-medium text-cyan-700">
+                  <span className="mt-4 text-[0.9375rem] leading-snug font-semibold text-navy-800 sm:mt-6 sm:text-lg">{name}</span>
+                  <span className="mt-auto flex items-center gap-1.5 pt-3 text-xs font-medium text-cyan-700 sm:pt-5 sm:text-sm">
                     Request catalogue
                     <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
                   </span>
@@ -149,7 +149,7 @@ export async function WhatWeMakeDisciplines() {
               </li>
             );
           })}
-          <li>
+          <li className="col-span-2 sm:col-span-1">
             <Link
               href="/contact"
               className="group flex h-full flex-col rounded-2xl border-2 border-dashed border-cyan-500/50 bg-white/60 p-6 transition-colors hover:border-cyan-500 hover:bg-white"
@@ -164,7 +164,7 @@ export async function WhatWeMakeDisciplines() {
               </span>
             </Link>
           </li>
-          <li>
+          <li className="col-span-2 sm:col-span-1">
             <Link
               href="/catalogue"
               className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-navy-800 p-6 text-white transition-colors hover:bg-navy-950"
@@ -188,7 +188,7 @@ export async function WhatWeMakeDisciplines() {
 export async function HowItWorksRow() {
   const { howItWorks: HOW_IT_WORKS } = await getSiteContent();
   return (
-    <section className="bg-steel py-24 lg:py-32">
+    <section className="bg-steel py-16 sm:py-24 lg:py-32">
       <div className="container-page">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>

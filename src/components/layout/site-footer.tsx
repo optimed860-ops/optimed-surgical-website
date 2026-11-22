@@ -58,9 +58,9 @@ export async function SiteFooter() {
   return (
     <footer className="mt-auto bg-navy-950 text-white">
       <div className="container-page">
-        <div className="grid gap-12 py-20 sm:grid-cols-2 lg:grid-cols-[1.5fr_0.8fr_1fr_1.3fr] lg:gap-14">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-14 sm:gap-12 sm:py-20 lg:grid-cols-[1.5fr_0.8fr_1fr_1.3fr] lg:gap-14">
           {/* Company details */}
-          <div className="max-w-sm">
+          <div className="col-span-2 max-w-sm sm:col-span-1">
             <Logo inverse />
             <p className="mt-6 leading-relaxed text-white/75">
               {content.footer.description}
@@ -93,7 +93,7 @@ export async function SiteFooter() {
           <FooterColumn title="Buyers" links={BUYER_LINKS} />
 
           {/* Call to action */}
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <h2 className="text-base font-semibold tracking-normal text-white">Start a project</h2>
             <p className="mt-5 leading-relaxed text-white/75">
               Send your item list, drawings or private-label requirements. Our team replies with a written quotation.
