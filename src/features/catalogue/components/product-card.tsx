@@ -22,7 +22,7 @@ export function ProductCard({ product, priority }: { product: ProductSummary; pr
       <div className="flex flex-1 flex-col border-t border-line p-5">
         {product.productCode ? (
           <p className="text-xs text-slate-text">
-            Item code: <span className="ref-code text-cyan-700">{product.productCode}</span>
+            Item code <span className="ml-1 font-semibold tracking-wide text-navy-800 tabular-nums">{product.productCode}</span>
           </p>
         ) : null}
         <h3 className="mt-1.5 font-sans text-base leading-snug font-semibold [font-stretch:100%]">
