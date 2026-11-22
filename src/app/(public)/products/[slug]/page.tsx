@@ -10,7 +10,6 @@ import { ProductGrid } from "@/features/catalogue/components/product-card";
 import { AddToQuoteWithQuantity } from "@/features/quote/components/add-to-quote";
 import { publicStorageUrl } from "@/lib/storage";
 import type { ProductDetail } from "@/features/catalogue/types";
-import { IMAGE_CREDITS } from "@/content/image-credits";
 
 type Props = PageProps<"/products/[slug]">;
 
@@ -65,10 +64,7 @@ async function ProductContent({ params }: Pick<Props, "params">) {
           />
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
-            <div>
-              <ProductGallery images={product.images} name={product.name} hints={[product.categorySlug, product.name]} />
-              <PhotoCredit slug={product.slug} imagePath={product.images[0]?.path} />
-            </div>
+            <ProductGallery images={product.images} name={product.name} hints={[product.categorySlug, product.name]} />
 
             <div className="lg:pt-4">
               {product.productCode ? (
@@ -205,25 +201,3 @@ function ProductSkeleton() {
   );
 }
 
-/** Licence credit for starter photos from Wikimedia Commons (required by CC BY / CC BY-SA). Hidden once the photo is replaced. */
-function PhotoCredit({ slug, imagePath }: { slug: string; imagePath?: string }) {
-  const credit = IMAGE_CREDITS.find((c) => c.product === slug);
-  if (!credit || imagePath !== `catalogue/${slug}.jpg`) return null;
-  return (
-    <p className="mt-3 text-xs text-slate-text">
-      Photo:{" "}
-      <a href={credit.source} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-navy-800">
-        {credit.author}
-      </a>
-      ,{" "}
-      {credit.licenseUrl ? (
-        <a href={credit.licenseUrl} target="_blank" rel="noopener noreferrer license" className="underline underline-offset-2 hover:text-navy-800">
-          {credit.license}
-        </a>
-      ) : (
-        credit.license
-      )}
-      , via Wikimedia Commons
-    </p>
-  );
-}

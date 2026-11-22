@@ -65,9 +65,10 @@ export function AddToQuoteWithQuantity({ product }: { product: QuoteProduct }) {
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-col gap-3 sm:flex-row">
+      {/* Quantity and button side by side on every screen; the button fills the rest of the row. */}
+      <div className="flex items-stretch gap-3">
         <QuantityInput value={quantity} onChange={setQuantity} label={`Quantity for ${product.name}`} />
-        <Button type="button" size="xl" className="flex-1" onClick={() => addProduct(product, quantity)}>
+        <Button type="button" size="xl" className="h-12 min-w-0 flex-1 text-base" onClick={() => addProduct(product, quantity)}>
           <Plus aria-hidden />
           Add to quote
         </Button>
