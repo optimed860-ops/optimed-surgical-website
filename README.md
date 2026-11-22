@@ -136,6 +136,18 @@ npm run dev
 
 Open <http://localhost:3000/admin/login> and sign in with the admin account. The dashboard shows live counts from your database.
 
+## Deploy to Vercel
+
+Vercel builds the site straight from GitHub (zip upload is not supported for Next.js sites with a server). Note: Vercel's free Hobby plan is for non-commercial use; a business site needs the Pro plan.
+
+1. Open <https://vercel.com>, sign in with the GitHub account that can see the repository.
+2. **Add New… → Project → Import** the repository `optimed-surgical-website`. Framework is detected as Next.js; keep the default build settings.
+3. Before clicking Deploy, open **Environment Variables** and add (values from your `.env.local`):
+   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `RATE_LIMIT_HMAC_SECRET`, `RESEND_API_KEY`, `NOTIFY_EMAIL`, `EMAIL_FROM`, `CRON_SECRET`, `GOOGLE_SITE_VERIFICATION` (optional) and `NEXT_PUBLIC_SITE_URL` (your live address, e.g. `https://optimedsurgical.com`, no slash at the end).
+4. Click **Deploy**. Then **Settings → Domains → Add** `optimedsurgical.com` and follow the DNS records Vercel shows at your domain provider (remove the old Netlify records).
+5. Supabase → **Authentication → URL Configuration** → set **Site URL** to the same live address.
+6. `vercel.json` adds a daily cron (`/api/keep-alive`) that keeps the free Supabase project awake; it uses `CRON_SECRET`.
+
 ## Deploy to Netlify
 
 1. Put the project on GitHub (private repository is fine). `.env` and `.env.local` are not uploaded.

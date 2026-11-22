@@ -10,12 +10,16 @@ export function hashVisitorKey(ip: string, secret: string, scope = "quotation"):
 }
 
 /**
- * Client IP for rate limiting. Netlify sets x-nf-client-connection-ip itself, so
+ * Client IP for rate limiting. Netlify and Vercel set their own client-IP headers, so
  * a visitor cannot fake it; x-forwarded-for can be supplied by the visitor and
  * is only a fallback (local development, other hosts).
  */
 export function clientIpFrom(headers: Headers): string {
-  const platform = headers.get("x-nf-client-connection-ip")?.trim() || headers.get("x-real-ip")?.trim();
+  // Set by the hosting platform itself (Netlify / Vercel), so visitors cannot fake them.
+  const platform =
+    headers.get("x-nf-client-connection-ip")?.trim() ||
+    headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() ||
+    headers.get("x-real-ip")?.trim();
   if (platform) return platform;
   const forwarded = headers.get("x-forwarded-for");
   const first = forwarded?.split(",")[0]?.trim();
