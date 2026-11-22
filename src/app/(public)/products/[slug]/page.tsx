@@ -71,7 +71,11 @@ async function ProductContent({ params }: Pick<Props, "params">) {
             </div>
 
             <div className="lg:pt-4">
-              {product.productCode ? <p className="ref-code text-base text-cyan-700">{product.productCode}</p> : null}
+              {product.productCode ? (
+                <p className="text-base text-slate-text">
+                  Item code: <span className="ref-code text-base font-semibold text-navy-800">{product.productCode}</span>
+                </p>
+              ) : null}
               <h1 className="mt-3 text-h2">{product.name}</h1>
               {product.shortDescription ? (
                 <p className="mt-5 text-lead text-slate-text">{product.shortDescription}</p>

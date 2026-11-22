@@ -59,8 +59,8 @@ export function ProductForm({ product, categories }: { product?: ProductFormValu
               )}
             </select>
           </FieldRow>
-          <FieldRow label="Product code / item number" hint="optional">
-            <input name="productCode" maxLength={80} defaultValue={product?.product_code ?? ""} className={`${adminInput} h-10 font-mono`} />
+          <FieldRow label="Item code" hint="unique; leave empty to create one, e.g. OPM-688-428">
+            <input name="productCode" maxLength={80} defaultValue={product?.product_code ?? ""} placeholder="OPM-000-000" className={`${adminInput} h-10 font-mono uppercase`} />
           </FieldRow>
           <FieldRow label="Manufacturer" hint="optional">
             <input name="manufacturer" maxLength={160} defaultValue={product?.manufacturer ?? ""} className={`${adminInput} h-10`} />

@@ -36,8 +36,9 @@ Open **SQL Editor → New query**. For each file below: open it here, copy **all
 | 10 | `supabase/migrations/20261121000010_inquiries_and_free_text.sql` (catalogue & contact forms, typed item lists) |
 | 11 | `supabase/migrations/20261121000011_admin_content.sql` (editable website text, deleting orders) |
 | 12 | `supabase/migrations/20261121000012_blog.sql` (blog articles) |
+| 13 | `supabase/migrations/20261121000013_product_codes.sql` (unique item codes like OPM-688-428 for every product) |
 
-**Not sure what you already ran?** Paste `supabase/tests/setup_check.sql` into a new query and click **Run**. It changes nothing; it lists every step with ✅ (done) or ❌ (still to do) and tells you what to run next. Files 10, 11 and 12 can safely be run again.
+**Not sure what you already ran?** Paste `supabase/tests/setup_check.sql` into a new query and click **Run**. It changes nothing; it lists every step with ✅ (done) or ❌ (still to do) and tells you what to run next. Files 10 to 13 can safely be run again.
 
 Each file runs only **once**. If a file fails partway, send the error message to your developer before running anything else.
 

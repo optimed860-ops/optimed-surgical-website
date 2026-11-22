@@ -20,7 +20,11 @@ export function ProductCard({ product, priority }: { product: ProductSummary; pr
         />
       </Link>
       <div className="flex flex-1 flex-col border-t border-line p-5">
-        {product.productCode ? <p className="ref-code text-cyan-700">{product.productCode}</p> : null}
+        {product.productCode ? (
+          <p className="text-xs text-slate-text">
+            Item code: <span className="ref-code text-cyan-700">{product.productCode}</span>
+          </p>
+        ) : null}
         <h3 className="mt-1.5 font-sans text-base leading-snug font-semibold [font-stretch:100%]">
           <Link href={href} className="text-ink hover:text-navy-800 hover:underline">
             {product.name}

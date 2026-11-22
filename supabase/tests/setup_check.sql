@@ -31,9 +31,10 @@ from n, lateral (values
   (10, 'File 10 · forms (inquiries)',     to_regclass('public.inquiries') is not null,      'Run migrations/20261121000010_inquiries_and_free_text.sql'),
   (11, 'File 11 · admin content',         n.content_rows > 0,                               'Run migrations/20261121000011_admin_content.sql'),
   (12, 'File 12 · blog',                  to_regclass('public.blog_posts') is not null,     'Run migrations/20261121000012_blog.sql'),
-  (13, 'Admin account linked',            n.admins > 0,
+  (13, 'File 13 · product item codes',    exists(select 1 from pg_proc p join pg_namespace s on s.oid = p.pronamespace where s.nspname = 'app' and p.proname = 'generate_product_code'), 'Run migrations/20261121000013_product_codes.sql'),
+  (14, 'Admin account linked',            n.admins > 0,
        'Create a user in Authentication → Users (tick Auto Confirm), then run: insert into public.admins (user_id, full_name) select id, ''Admin'' from auth.users where email = ''YOUR@EMAIL'';'),
-  (14, 'Products loaded (optional)',      n.products > 0,                                   'Run seed/catalogue_products.sql, then seed/catalogue_photos.sql'),
-  (15, 'Blog articles (optional)',        n.blog_posts > 0,                                 'Run seed/blog_posts.sql')
+  (15, 'Products loaded (optional)',      n.products > 0,                                   'Run seed/catalogue_products.sql, then seed/catalogue_photos.sql'),
+  (16, 'Blog articles (optional)',        n.blog_posts > 0,                                 'Run seed/blog_posts.sql')
 ) as t(step, item, ok, how_to_fix)
 order by step;
