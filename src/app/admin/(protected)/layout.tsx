@@ -13,15 +13,22 @@ export const metadata: Metadata = {
 export default function ProtectedAdminLayout({ children }: LayoutProps<"/admin">) {
   return (
     <div className="min-h-dvh bg-surface lg:grid lg:grid-cols-[15rem_minmax(0,1fr)]">
-      <aside className="bg-sidebar text-sidebar-foreground lg:sticky lg:top-0 lg:h-dvh">
-        <div className="flex h-full flex-col gap-4 px-4 py-4 lg:py-6">
-          <p className="px-3 text-sm font-semibold text-cyan-300">Admin</p>
+      <aside className="min-w-0 bg-sidebar text-sidebar-foreground lg:sticky lg:top-0 lg:h-dvh">
+        <div className="flex h-full min-w-0 flex-col gap-3 px-4 py-3 lg:gap-4 lg:py-6">
+          <div className="flex items-center justify-between">
+            <p className="px-3 text-sm font-semibold text-cyan-300">Admin</p>
+            <div className="lg:hidden">
+              <Suspense fallback={null}>
+                <MobileSignOut />
+              </Suspense>
+            </div>
+          </div>
           <div className="hidden lg:block">
             <Suspense fallback={<div className="h-80" />}>
               <AdminNav orientation="vertical" />
             </Suspense>
           </div>
-          <div className="lg:hidden">
+          <div className="min-w-0 lg:hidden">
             <Suspense fallback={<div className="h-10" />}>
               <AdminNav orientation="horizontal" />
             </Suspense>
@@ -46,7 +53,7 @@ export default function ProtectedAdminLayout({ children }: LayoutProps<"/admin">
 
 async function AdminGate({ children }: { children: React.ReactNode }) {
   await requireAdmin();
-  return <main className="px-4 py-6 sm:px-6 lg:px-10 lg:py-10">{children}</main>;
+  return <main className="min-w-0 px-4 py-6 sm:px-6 lg:px-10 lg:py-10 [&_.grid>*]:min-w-0">{children}</main>;
 }
 
 async function AdminIdentity() {
@@ -66,6 +73,18 @@ async function AdminIdentity() {
         </button>
       </form>
     </div>
+  );
+}
+
+async function MobileSignOut() {
+  await requireAdmin();
+  return (
+    <form action={signOut}>
+      <button type="submit" className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs font-medium text-sidebar-foreground hover:text-white">
+        <LogOut className="size-3.5" aria-hidden />
+        Sign out
+      </button>
+    </form>
   );
 }
 

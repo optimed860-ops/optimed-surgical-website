@@ -22,8 +22,8 @@ export default async function AdminContentPage({ searchParams }: PageProps<"/adm
     <>
       <AdminHeader title="Website content" description="Change any text on the website. Choose a section, edit it, then save. Empty boxes use the original text." />
       <div className="grid gap-6 lg:grid-cols-[15rem_1fr]">
-        <nav aria-label="Sections" className="lg:sticky lg:top-6 lg:self-start">
-          <ul className="flex gap-1.5 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
+        <nav aria-label="Sections" className="min-w-0 lg:sticky lg:top-6 lg:self-start">
+          <ul className="-mx-4 flex gap-1.5 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:px-0 lg:flex-col lg:overflow-visible lg:pb-0">
             {CONTENT_SECTIONS.map((s) => (
               <li key={s.key} className="shrink-0">
                 <Link

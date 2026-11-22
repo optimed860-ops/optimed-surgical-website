@@ -70,7 +70,7 @@ export function ContentEditor({ section, initial, template }: { section: string;
   return (
     <div>
       <Field path={[]} value={value} template={template} onChange={change} />
-      <div className="sticky bottom-0 -mx-5 mt-6 flex flex-wrap items-center gap-3 border-t border-line bg-white/95 px-5 py-4 sm:-mx-6 sm:px-6">
+      <div className="sticky bottom-0 -mx-4 mt-6 flex flex-wrap items-center gap-3 border-t border-line bg-white/95 px-4 py-4 sm:-mx-6 sm:px-6">
         <button type="button" onClick={save} disabled={pending || !dirty} className={primaryButton}>
           {pending ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
           Save section
