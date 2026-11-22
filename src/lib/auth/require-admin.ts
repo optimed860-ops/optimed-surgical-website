@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 export type AdminUser = {
@@ -15,6 +16,9 @@ export type AdminUser = {
  * the browser. Wrapped in React cache(), so it runs once per request.
  */
 export const getAdmin = cache(async function getAdmin(): Promise<AdminUser | null> {
+  // Admin checks always run per request: Supabase compares token times with the
+  // clock (Date.now), which Next.js must never try to prerender.
+  await connection();
   const supabase = await createClient();
   const { data: userData, error } = await supabase.auth.getUser();
   if (error || !userData.user) return null;
