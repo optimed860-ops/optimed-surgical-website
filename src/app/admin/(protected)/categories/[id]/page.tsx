@@ -41,6 +41,11 @@ export default async function EditCategoryPage({ params, searchParams }: PagePro
           </form>
         }
       />
+      {sp.error === "sub-in-use" ? (
+        <p className="mb-5 rounded-md bg-red-50 p-3 text-sm text-red-800">
+          That subcategory still has products. Move those products to another subcategory (or None) first, then delete it.
+        </p>
+      ) : null}
       {sp.error === "in-use" ? (
         <p className="mb-5 rounded-md bg-red-50 p-3 text-sm text-red-800">
           This category still has products. Move or delete those products first, then delete the category.

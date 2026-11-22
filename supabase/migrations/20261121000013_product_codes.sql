@@ -34,6 +34,7 @@ update public.products p set product_code = null
 where p.product_code is not null
   and exists (
     select 1 from public.products q
+  
     where lower(q.product_code) = lower(p.product_code)
       and (q.created_at, q.id) < (p.created_at, p.id)
   );

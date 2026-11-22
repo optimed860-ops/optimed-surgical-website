@@ -132,6 +132,7 @@ export async function setBlogCover(postId: string, storagePath: string | null): 
 }
 
 export async function removeBlogCover(formData: FormData): Promise<void> {
+  await assertAdmin();
   const id = z.uuid().parse(formData.get("id"));
   await setBlogCover(id, null);
 }

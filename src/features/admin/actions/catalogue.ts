@@ -247,11 +247,15 @@ export async function deleteSubcategory(formData: FormData): Promise<void> {
   await assertAdmin();
   const id = z.uuid().parse(formData.get("id"));
   const supabase = await createClient();
-  await supabase.from("subcategories").delete().eq("id", id);
+  const { data: sub } = await supabase.from("subcategories").select("category_id").eq("id", id).maybeSingle();
+  const { error } = await supabase.from("subcategories").delete().eq("id", id);
   refreshCatalogue();
+  // Products still use it (delete is restricted): tell the admin instead of failing silently.
+  if (error && sub) redirect(`/admin/categories/${sub.category_id}?error=sub-in-use`);
 }
 
 export async function removeCategoryImage(formData: FormData): Promise<void> {
+  await assertAdmin();
   const id = z.uuid().parse(formData.get("id"));
   await setCategoryImage(id, null);
 }

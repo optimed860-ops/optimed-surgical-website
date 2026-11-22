@@ -8,9 +8,9 @@ describe("setup_check.sql", () => {
   it("runs on a fully migrated database and reports every migration as done", async () => {
     const db = await createMigratedDatabase();
     const { rows } = await db.query<{ step: number; status: string }>(sql());
-    expect(rows).toHaveLength(16);
-    for (const row of rows.filter((r) => r.step <= 13)) expect(row.status).toContain("done");
-    expect(rows.find((r) => r.step === 14)?.status).toContain("missing"); // no admin yet
+    expect(rows).toHaveLength(17);
+    for (const row of rows.filter((r) => r.step <= 14)) expect(row.status).toContain("done");
+    expect(rows.find((r) => r.step === 15)?.status).toContain("missing"); // no admin yet
     await db.close();
   }, 60_000);
 

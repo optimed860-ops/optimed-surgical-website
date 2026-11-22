@@ -274,6 +274,7 @@ export type Database = {
     Functions: {
       submit_quotation: { Args: { p_payload: Json; p_key_hash: string }; Returns: Json };
       submit_inquiry: { Args: { p_payload: Json; p_key_hash: string }; Returns: Json };
+      check_login_rate_limit: { Args: { p_key_hash: string }; Returns: boolean };
       create_order: { Args: { p_payload: Json }; Returns: string };
       add_order_update: {
         Args: { p_order_id: string; p_status: string; p_message: string };
