@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Toaster } from "@/components/shared/toaster";
+import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,6 +17,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
         {children}
       </main>
       <SiteFooter />
+      <WhatsAppButton />
       <Toaster />
     </>
   );
