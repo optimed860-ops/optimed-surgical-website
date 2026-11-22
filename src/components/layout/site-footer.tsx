@@ -129,12 +129,7 @@ export async function SiteFooter() {
 
         <div className="flex flex-col gap-4 border-t border-white/15 py-7 text-sm text-white/60 lg:flex-row lg:items-center lg:justify-between">
           <p className="max-w-3xl leading-relaxed">
-            © <CopyrightYear /> {companyName}. All rights reserved. {FOOTER_TAGLINE} Product descriptions and item numbers may not be copied
-            or reused without our written permission. Some product photos are used under free licences:{" "}
-            <Link href="/image-credits" className="underline underline-offset-2 hover:text-white">
-              image credits
-            </Link>
-            .
+            © <CopyrightYear /> {companyName}. All rights reserved. {FOOTER_TAGLINE}
           </p>
         </div>
       </div>

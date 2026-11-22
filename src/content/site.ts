@@ -52,7 +52,7 @@ export const CONTACT_PAGE = {
     "Healthcare brand (private label)",
     "Other",
   ],
-  payment: ["Bank transfer (T/T)", "Letter of credit (L/C)", "Purchase order", "To be discussed"],
+  payment: ["Bank transfer (T/T)", "Credit card", "Letter of credit (L/C)", "Purchase order", "To be discussed"],
 } as const;
 
 export const NAV = [

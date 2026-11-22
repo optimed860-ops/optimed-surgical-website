@@ -19,7 +19,33 @@ async function readOverride(supabase: Awaited<ReturnType<typeof createClient>>) 
 }
 
 async function writeOverride(supabase: Awaited<ReturnType<typeof createClient>>, value: Record<string, unknown>) {
-  return supabase.from("site_settings").upsert({ setting_key: "site_content", setting_value: value as never, is_public: true }, { onConflict: "setting_key" });
+  return writeSettings(supabase, [{ setting_key: "site_content", setting_value: value }]);
+}
+
+/**
+ * Saves settings without upsert: admins may only UPDATE setting_value/is_public
+ * (not the key column), and PostgREST's upsert would also update the key and be
+ * refused. So: update existing rows, insert the missing ones.
+ */
+async function writeSettings(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  rows: { setting_key: string; setting_value: unknown }[],
+): Promise<{ error: { code?: string; message?: string } | null }> {
+  for (const row of rows) {
+    const { data, error } = await supabase
+      .from("site_settings")
+      .update({ setting_value: row.setting_value as never, is_public: true })
+      .eq("setting_key", row.setting_key)
+      .select("setting_key");
+    if (error) return { error };
+    if (!data || data.length === 0) {
+      const { error: insertError } = await supabase
+        .from("site_settings")
+        .insert({ setting_key: row.setting_key, setting_value: row.setting_value as never, is_public: true });
+      if (insertError) return { error: insertError };
+    }
+  }
+  return { error: null };
 }
 
 /** Saves one section. The value is reshaped to the defaults, so nothing unexpected is stored. */
@@ -101,9 +127,9 @@ export async function saveSettings(_prev: ActionResult, formData: FormData): Pro
     { setting_key: "phone_number", setting_value: d.phoneNumber },
     { setting_key: "address", setting_value: d.address },
     { setting_key: "social_links", setting_value: socialLinks },
-  ].map((r) => ({ ...r, is_public: true }));
+  ];
   const supabase = await createClient();
-  const { error } = await supabase.from("site_settings").upsert(rows, { onConflict: "setting_key" });
+  const { error } = await writeSettings(supabase, rows);
   if (error) return dbError(error);
   updateTag("settings");
   refresh();

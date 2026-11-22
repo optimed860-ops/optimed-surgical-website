@@ -72,6 +72,7 @@ export function QuoteBuilder({
     const terms = [
       get("buyerType") && `Buyer type: ${get("buyerType")}`,
       get("payment") && `Preferred payment: ${get("payment")}`,
+      get("itemCode") && `Item code: ${get("itemCode")}`,
       get("neededBy") && `Needed by: ${get("neededBy")}`,
     ].filter(Boolean);
     const note = get("additionalMessage");
@@ -197,6 +198,9 @@ export function QuoteBuilder({
             <option key={p}>{p}</option>
           ))}
         </select>
+      </Field>
+      <Field label="Item code" hint="optional, if you have one" name="itemCode" className="sm:col-span-2">
+        <input id="itemCode" name="itemCode" maxLength={120} placeholder="e.g. OS-1023 or your own code" className={cn(input, "h-11 font-mono")} />
       </Field>
       <Field
         label="Products and quantities"
